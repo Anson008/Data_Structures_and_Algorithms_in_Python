@@ -1,6 +1,4 @@
-class Empty(Exception):
-    """Error attempting to access an element from an empty container."""
-    pass
+from Chapter_06.Examples_C06.empty_exception import Empty
 
 
 class ArrayStack:
