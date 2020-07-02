@@ -1,4 +1,4 @@
-from Chapter_06.Examples_C06.empty_exception import Empty
+from empty_exception import Empty
 
 
 class ArrayQueue:
