@@ -33,7 +33,7 @@ class LinkedDeque(_DoublyLinkedBase):
         if self.is_empty():
             raise Empty('Deque is empty')
         return self._delete_node(self._header._next)
-    
+
     def delete_last(self):
         """
         Remove and return the element from the back of the deque.
@@ -42,3 +42,14 @@ class LinkedDeque(_DoublyLinkedBase):
         if self.is_empty():
             raise Empty('Deque is empty')
         return self._delete_node(self._trailer._prev)
+
+
+if __name__ == "__main__":
+    deque = LinkedDeque()
+    deque.insert_first('a')
+    deque.insert_last('b')
+    deque.insert_last('c')
+    print(deque.first())
+    print(deque.last())
+    deque.delete_last()
+    print(deque.last())

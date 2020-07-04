@@ -30,7 +30,7 @@ class _DoublyLinkedBase:
         """Add element e between two existing nodes and return new node."""
         newest = self._Node(e, predecessor, successor)
         predecessor._next = newest
-        successor._next = newest
+        successor._prev = newest
         self._size += 1
         return newest
 
@@ -45,4 +45,3 @@ class _DoublyLinkedBase:
         node._prev = node._next = node._element = None
         return element
 
-    
