@@ -50,7 +50,7 @@ class PositionalList(_DoublyLinkedBase):
 
     def last(self):
         """Return the last Position in the list (or None if list is empty)."""
-        return self._make_position(self._trailer._next)
+        return self._make_position(self._trailer._prev)
 
     def before(self, p):
         """Return the Position just before Postion p (or None if p is first)."""
@@ -58,7 +58,7 @@ class PositionalList(_DoublyLinkedBase):
         return self._make_position(node._prev)
 
     def after(self, p):
-        """Return the Position just before Postion p (or None if p is first)."""
+        """Return the Position just after Postion p (or None if p is last)."""
         node = self._validate(p)
         return self._make_position(node._next)
 
@@ -72,7 +72,7 @@ class PositionalList(_DoublyLinkedBase):
     # ------------------ mutators -------------------
     # override inherited version to return Position, rather than Node.
     def _insert_between(self, e, predecessor, successor):
-        """Add element between existing nodes and return new Postion."""
+        """Add element between existing nodes and return new Position."""
         node = super()._insert_between(e, predecessor, successor)
         return self._make_position(node)
 
@@ -85,24 +85,24 @@ class PositionalList(_DoublyLinkedBase):
         return self._insert_between(e, self._trailer._prev, self._trailer)
 
     def add_before(self, p, e):
-        """Insert element e into list before Position p and return new Postion."""
+        """Insert element e into list before Position p and return new Position."""
         original = self._validate(p)
         return self._insert_between(e, original._prev, original)
 
     def add_after(self, p, e):
-        """Insert element e into list after Position p and return new Postion."""
+        """Insert element e into list after Position p and return new Position."""
         original = self._validate(p)
         return self._insert_between(e, original, original._next)
 
     def delete(self, p):
-        """Remove and return the element at Postion p."""
+        """Remove and return the element at Position p."""
         original = self._validate(p)
         return self._delete_node(original)
 
     def replace(self, p, e):
         """
-        Replace the element at Postion p with e.
-        Return the elemtn formerly at Postion p.
+        Replace the element at Position p with e.
+        Return the element formerly at Position p.
         """
         original = self._validate(p)
         old_value = original._element
