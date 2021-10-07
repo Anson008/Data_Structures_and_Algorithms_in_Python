@@ -176,3 +176,23 @@ class LinedBinaryTree(BinaryTree):
             node._right = t2._root
             t2._root = None
             t2._size = 0
+
+    def inorder(self):
+        """Generate an inorder iteration of positions in the tree."""
+        if not self.is_empty():
+            for p in self._subtree_inorder(self.root()):
+                yield p
+
+    def _subtree_inorder(self, p):
+        """Generate an inorder iteration of positions in subtree rooted at p."""
+        if self.left(p):
+            for other in self._subtree_inorder(self.left(p)):
+                yield other
+        yield p
+        if self.right(p):
+            for other in self._subtree_inorder(self.right(p)):
+                yield other
+
+    def positions(self):
+        """Generate an iteration of the tree's positions."""
+        return self.inorder()
