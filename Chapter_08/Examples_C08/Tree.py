@@ -1,3 +1,6 @@
+from Chapter_07.Examples_C07.LinkedQueue import LinkedQueue
+
+
 class Tree:
     """Abstract base class representing a tree structure."""
 
@@ -38,6 +41,14 @@ class Tree:
         """Return the total number of elements in the tree."""
         raise NotImplementedError('must be implemented by subclass')
 
+    def __iter__(self):
+        """
+        Generate an iteration of the tree's elements.
+        :return: no return
+        """
+        for p in self.positions():
+            yield p.element()
+
     # -------- concrete methods implemented in this class --------
     def is_root(self, p):
         """Return True if Position p represents the root of the tree."""
@@ -73,3 +84,44 @@ class Tree:
         if p is None:
             p = self.root()
         return self._height(p)
+
+    def preorder(self):
+        """Generate a preorder iteration of positions in the tree."""
+        if not self.is_empty():
+            for p in self._subtree_preorder(self.root()):
+                yield p
+
+    def _subtree_preorder(self, p):
+        """Generate a preorder iteration of positions in subtree rooted at p."""
+        yield p
+        for c in self.children(p):
+            for other in self._subtree_preorder(c):
+                yield other
+
+    def positions(self):
+        """Generate an iteration of the tree's positions."""
+        return self.preorder()
+
+    def postorder(self):
+        """Generate a postorder iteration of positions in the tree."""
+        if not self.is_empty():
+            for p in self._subtree_postorder(self.root()):
+                yield p
+
+    def _subtree_postorder(self, p):
+        """Generate a postorder iteration of positions in subtree rooted at p."""
+        for c in self.children(p):
+            for other in self._subtree_postorder(c):
+                yield other
+        yield p
+
+    def breadthfirst(self):
+        """Generate a breath-first iteration of positions in the tree."""
+        if not self.is_empty():
+            fringe = LinkedQueue()
+            fringe.enqueue(self.root())
+            while not fringe.is_empty():
+                p = fringe.dequeue()
+                yield p
+                for c in self.children(p):
+                    fringe.enqueue(c)
