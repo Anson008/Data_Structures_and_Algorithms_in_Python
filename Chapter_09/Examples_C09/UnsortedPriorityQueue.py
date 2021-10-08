@@ -14,7 +14,7 @@ class UnsortedPriorityQueue(PriorityQueueBase):  # Base class defines _Item
         return len(self._data)
 
     def _find_min(self):
-        """Return Position of item with minmum key."""
+        """Return Position of item with minimum key."""
         if self.is_empty():
             raise Empty('Priority queue is empty')
         small = self._data.first()
