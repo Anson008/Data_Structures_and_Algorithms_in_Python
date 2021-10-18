@@ -1,4 +1,5 @@
 from Chapter_09.Examples_C09.PriorityQueueBase import PriorityQueueBase
+from empty_exception import Empty
 
 
 class HeapPriorityQueue(PriorityQueueBase):
@@ -36,7 +37,7 @@ class HeapPriorityQueue(PriorityQueueBase):
             small_child = left
             if self._has_right(j):
                 right = self._right(j)
-                if self._data[right] < self._data[small_child]:
+                if self._data[right] < self._data[left]:
                     small_child = right
             if self._data[small_child] < self._data[j]:
                 self._swap(j, small_child)
@@ -65,7 +66,7 @@ class HeapPriorityQueue(PriorityQueueBase):
     def add(self, key, value):
         """Add a key-value pair to the priority queue."""
         self._data.append(self._Item(key, value))
-        sefl._upheap(len(self._data) - 1)
+        self._upheap(len(self._data) - 1)
 
     def min(self):
         """
